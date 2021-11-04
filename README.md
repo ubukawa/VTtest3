@@ -14,6 +14,8 @@ If you want to see it, you need to add index.json  [https://ubukawa.github.io/VT
 ### Style
 [https://ubukawa.github.io/VTtest3/VectorTileServer/resources/styles/root.json](https://ubukawa.github.io/VTtest3/VectorTileServer/resources/styles/root.json)  
 
+### tilemap
+No tile map at https://ubukawa.github.io/VTtest3/VectorTileServer/tilemap (https://ubukawa.github.io/VTtest3/VectorTileServer/tilemap/root.json)  
 
 # References
 https://support.woolpert.io/hc/en-us/articles/360047530073-Vector-Tiles-on-Google-Cloud-Storage-Serving-the-Tiles  
