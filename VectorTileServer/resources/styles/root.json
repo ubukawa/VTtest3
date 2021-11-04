@@ -19,7 +19,7 @@
       "type": "background",
       "minzoom": 4,
       "maxzoom": 7,
-      "paint": {"background-color": "rgba(199, 255, 238, 1)"}
+      "paint": {"background-color": "#D6EBF5"}
     },
     {
       "id": "ls-coastline",
@@ -34,7 +34,7 @@
       "source-layer": "waterarea",
       "minzoom": 4,
       "maxzoom": 7,
-      "paint": {"fill-color": "rgba(46, 0, 255, 1)"}
+      "paint": {"fill-color": "#2E00FF"}
     },
     {
       "id": "ls-boundary-pref",
@@ -46,7 +46,7 @@
       "filter": ["all", ["==", "ftCode", 51212]],
       "layout": {"line-cap": "square"},
       "paint": {
-        "line-color": "rgba( 0, 0, 0, 1)",
+        "line-color": "#000000",
         "line-dasharray": [10, 2, 1, 2]
       }
     },
