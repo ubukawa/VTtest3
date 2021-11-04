@@ -7,8 +7,8 @@
       "tiles": [
         "https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf"
       ],
-      "minzoom": 4,
-      "maxzoom": 16
+      "minZoom": 4,
+      "maxZoom": 16
     }
   },
   "sprite": "https://gsi-cyberjapan.github.io/gsivectortile-mapbox-gl-js/sprite/std",
