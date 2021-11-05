@@ -52,12 +52,22 @@
               copyright: "Natural Earth"
             })],
             title: "natural earth - test",
-            id: "testmap"
+            id: "testbasemap"
+        }); 
+
+        const stdMap = new Basemap({
+           baseLayers:[new WebTileLayer({
+              urlTemplate: "https://cyberjapandata.gsi.go.jp/xyz/std/{level}/{col}/{row}.png",
+              copyright: "GSI tile https://maps.gsi.go.jp/development/ichiran.html"
+            })],
+            title: "GSI tile - Raster sample",
+             id: "stdmap",
+             thumbnailUrl: "https://cyberjapandata.gsi.go.jp/xyz/std/12/3637/1612.png"
         }); 
 
 
         const map = new Map({
-          basemap: testBaseMap,
+          basemap: stdMap,
           layers: [tileLayer]
         });
 
