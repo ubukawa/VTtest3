@@ -16,16 +16,19 @@
   "layers": [
     {
       "id": "background",
-      "type": "background",
-      "minzoom": 4,
-      "maxzoom": 7,
-      "paint": {"background-color": "#D6EBF5"}
+      "paint": {
+        "background-color": "#D6EBF5"
+      },
+      "type": "background"
     },
     {
       "id": "ls-coastline",
       "type": "line",
       "source": "s",
-      "source-layer": "coastline"
+      "maxzoom": 9,
+      "minzoom": 4,
+      "source-layer": "coastline",
+      "paint": {"line-color": "#636566"}
     },
     {
       "id": "pg-watera",
@@ -34,7 +37,7 @@
       "source-layer": "waterarea",
       "minzoom": 4,
       "maxzoom": 7,
-      "paint": {"fill-color": "#2E00FF"}
+      "paint": {"fill-color": "rgba(46, 0, 255, 1)"}
     },
     {
       "id": "ls-boundary-pref",
@@ -61,5 +64,6 @@
       "layout": {"line-cap": "square"},
       "paint": {"line-color": "rgba(34, 24, 21, 1)"}
     }
-  ]
+  ],
+"_ssl":true
 }
