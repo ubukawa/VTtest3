@@ -4,9 +4,7 @@
   "sources": {
     "s": {
       "type": "vector",
-      "tiles": [
-        "https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf"
-      ],
+      "url": "https://ubukawa.github.io/VTtest3/VectorTileServer/",
       "minZoom": 4,
       "maxZoom": 16
     }
