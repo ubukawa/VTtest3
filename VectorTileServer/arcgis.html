@@ -35,7 +35,8 @@
     <script src="https://js.arcgis.com/4.18/"></script>
 
     <script>
-      require(["esri/config", "esri/Map", "esri/views/MapView", "esri/layers/VectorTileLayer", "esri/layers/GeoJSONLayer", "esri/widgets/LayerList",], function (esriConfig, Map, MapView, VectorTileLayer, GeoJSONLayer, LayerList) {
+//      require(["esri/config", "esri/Map", "esri/views/MapView", "esri/layers/VectorTileLayer", "esri/layers/GeoJSONLayer", "esri/widgets/LayerList",], function (esriConfig, Map, MapView, VectorTileLayer, GeoJSONLayer, LayerList) {
+      require(["esri/config", "esri/Map", "esri/views/MapView", "esri/Basemap", "esri/layers/VectorTileLayer", "esri/layers/GeoJSONLayer", "esri/widgets/LayerList",], function (esriConfig, Map, MapView, Basemap, VectorTileLayer, GeoJSONLayer, LayerList) {
         
         const tileLayer = new VectorTileLayer({
           title: "VT Test 3",
@@ -46,6 +47,8 @@
 
         esriConfig.apiKey = "AAPK048ab05fc7dc471baef72300e32e40c1kae1piEU4mCHGqysxN5-4DXP0hr0zbp5dbpV7fCB4ku-FnroRff8buWFlOSxq6UF";
 
+//new
+
         const testBaseMap = new Basemap({
             baseLayers:[new VectorTileLayer({
               url: "https://ubukawa.github.io/vt-test/maps/test-simple.json",
@@ -55,6 +58,7 @@
             id: "testbasemap"
         }); 
 
+/*
         const stdMap = new Basemap({
            baseLayers:[new WebTileLayer({
               urlTemplate: "https://cyberjapandata.gsi.go.jp/xyz/std/{level}/{col}/{row}.png",
@@ -64,17 +68,18 @@
              id: "stdmap",
              thumbnailUrl: "https://cyberjapandata.gsi.go.jp/xyz/std/12/3637/1612.png"
         }); 
+*/
 
-
-//        const map = new Map({
-//          basemap: stdMap,
-//          layers: [tileLayer]
-//        });
 
         const map = new Map({
-          basemap: "arcgis-topographic",
+          basemap: testBaseMap,
           layers: [tileLayer]
         });
+
+//        const map = new Map({
+//          basemap: "arcgis-topographic",
+//          layers: [tileLayer]
+//        });
 
         const view = new MapView({
           container: "viewDiv",
