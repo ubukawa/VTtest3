@@ -43,21 +43,28 @@
           opacity: 0.5
         });
         
-        /*
-        const geoJSONLayer = new GeoJSONLayer({
-            title: "全国市区町村界データ (GeoJSON)",
-            url: "./japan_ver821.geojson",
-            opacity: 0.8,
-            visible: false
-        });
-        */
 
         esriConfig.apiKey = "AAPK048ab05fc7dc471baef72300e32e40c1kae1piEU4mCHGqysxN5-4DXP0hr0zbp5dbpV7fCB4ku-FnroRff8buWFlOSxq6UF";
-        
+
+        const testBaseMap = new Basemap({
+            baseLayers:[new VectorTileLayer({
+              url: "https://ubukawa.github.io/vt-test/maps/test-simple.json",
+              copyright: "Natural Earth"
+            })],
+            title: "natural earth - test",
+            id: "testmap"
+        }); 
+
+
         const map = new Map({
-          basemap: "arcgis-topographic",
+          basemap: testBaseMap,
           layers: [tileLayer]
         });
+
+//        const map = new Map({
+//          basemap: "arcgis-topographic",
+//          layers: [tileLayer]
+//        });
 
         const view = new MapView({
           container: "viewDiv",
