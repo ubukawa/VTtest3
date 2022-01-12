@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>
+      Display a few layers from GSI Maps Vector 
+    </title>
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+      #info {
+        background-color: black;
+        opacity: 0.75;
+        color: orange;
+        font-size: 12pt;
+        padding: 8px;
+        visibility: hidden;
+      }
+    </style>
+
+    <link
+      rel="stylesheet"
+      href="https://js.arcgis.com/4.18/esri/themes/light/main.css"
+    />
+    <script src="https://js.arcgis.com/4.18/"></script>
+
+    <script>
+//      require(["esri/config", "esri/Map", "esri/views/MapView", "esri/layers/VectorTileLayer", "esri/layers/GeoJSONLayer", "esri/widgets/LayerList",], function (esriConfig, Map, MapView, VectorTileLayer, GeoJSONLayer, LayerList) {
+      require(["esri/config", "esri/Map", "esri/views/MapView", "esri/Basemap", "esri/layers/VectorTileLayer", "esri/layers/GeoJSONLayer", "esri/widgets/LayerList",], function (esriConfig, Map, MapView, Basemap, VectorTileLayer, GeoJSONLayer, LayerList) {
+        
+        const tileLayer = new VectorTileLayer({
+          title: "VT Test 3",
+          url: "https://ubukawa.github.io/VTtest3/additionalTest/VectorTileServer",
+          opacity: 0.5
+        });
+        
+
+//        esriConfig.apiKey = ""; //do not use base map.
+
+//new
+
+        const testBaseMap = new Basemap({
+            baseLayers:[new VectorTileLayer({
+              url: "https://ubukawa.github.io/vt-test/maps/test-simple.json",
+              copyright: "Natural Earth"
+            })],
+            title: "natural earth - test",
+            id: "testbasemap"
+        }); 
+
+/*
+        const stdMap = new Basemap({
+           baseLayers:[new WebTileLayer({
+              urlTemplate: "https://cyberjapandata.gsi.go.jp/xyz/std/{level}/{col}/{row}.png",
+              copyright: "GSI tile https://maps.gsi.go.jp/development/ichiran.html"
+            })],
+            title: "GSI tile - Raster sample",
+             id: "stdmap",
+             thumbnailUrl: "https://cyberjapandata.gsi.go.jp/xyz/std/12/3637/1612.png"
+        }); 
+*/
+
+
+        const map = new Map({
+          basemap: testBaseMap,
+          layers: [tileLayer]
+        });
+
+//        const map = new Map({
+//          basemap: "arcgis-topographic",
+//          layers: [tileLayer]
+//        });
+
+        const view = new MapView({
+          container: "viewDiv",
+          map: map,
+          zoom: 5,
+          center: [139.69167,35.68944] // longitude, latitude
+        });
+
+        view.ui.add("info", "bottom-right");
+
+        view
+          .when()
+          .then(function () {
+            const layerList = new LayerList({
+              view: view
+            });
+            // Add widget to the top right corner of the view
+            view.ui.add(layerList, "top-right");
+            return tileLayer.when();
+          })
+          .then(function (layer) {
+            return view.whenLayerView(layer);
+          })
+          .then(function (layerView) {
+            view.on(["pointer-move", "pointer-down"], eventHandler);
+
+            function eventHandler(event) {
+              // only include graphics from tileLayer in the hitTest
+              const opts = {
+                include: tileLayer
+              };
+              // the hitTest() checks to see if any graphics from the tileLayer
+              // intersect the x, y coordinates of the pointer
+              view.hitTest(event, opts).then(getGraphics);
+            }
+
+            function getGraphics(response) {
+                
+                if (response.results.length) {
+                  const graphic = response.results[0].graphic;
+                  const mapPoint = response.results[0].mapPoint;
+
+                  const attributes = graphic.attributes;
+                  //-----------------------------------------------------------------
+                  // Obtain attribute information
+                  const ken = attributes.KEN;
+                  const sikuchoson = attributes.SIKUCHOSON;
+                  //  I can get it with Mapbox GL JS, but not with ArcGIS API for JavaScript.
+                  //  // Mapbox GL JS 
+                  // map.on("click", "japan_ver821_layer", (e) => {
+                  //    const value = e.features[0];
+                  //    console.log(value)
+                  //    new mapboxgl.Popup()
+                  //        .setHTML(`<b>${value.properties.KEN}</b>${value.properties.SIKUCHOSON}`)
+                  //        .setLngLat(e.lngLat)
+                  //        .addTo(map);
+                  //  });
+                  //-----------------------------------------------------------------
+                  const layerName = attributes.layerName;
+                  const latitude = mapPoint.latitude;
+                  const longitude = mapPoint.longitude;
+
+                  document.getElementById("info").style.visibility = "visible";
+                  document.getElementById("name").innerHTML = layerName;
+                  document.getElementById("lat").innerHTML =  "緯度： " + latitude;
+                  document.getElementById("lon").innerHTML =  "経度： " + longitude;
+
+              } else {
+                document.getElementById("info").style.visibility = "hidden";
+              }
+            }
+
+          });
+
+      });
+    </script>
+  </head>
+
+  <body>
+    <div id="viewDiv"></div>
+    <div id="info">
+      <span id="name"></span><br />
+      <span id="lat"></span><br />
+      <span id="lon"></span>
+    </div>
+  </body>
+</html>
