@@ -3,7 +3,7 @@
  "name": "VT Test 3",
  "capabilities": "TilesOnly",
  "copyrightText": "地理院地図Vector（仮称）",
- "type": "indexedFlat",
+ "type": "indexedVector",
  "defaultStyles": "resources/styles",
  "tiles": [
   "https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf"
